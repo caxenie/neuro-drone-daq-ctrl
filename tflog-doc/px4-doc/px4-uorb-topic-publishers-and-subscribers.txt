@@ -1,0 +1,139 @@
+-------------------------------------------------------------------------------------------------
+		a list of ORB topic publishers and subscribers
+-------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------
+		rc_channels
+-----------------------------------------------------------
+
+- publishers
+
+	-> mavlinkf/mavlink_receiver.cpp			(only if mavlink_hil_enabled == true)
+	-> sensors/sensors.cpp						(only if input_rc message is received)
+
+	
+- subscribers
+
+	-> mavlinkf/orb_listener.c
+	-> sdlog2/sdlog2.c
+
+	
+-----------------------------------------------------------
+		manual_control_setpoint (MAVLINK: manual_control)
+-----------------------------------------------------------
+
+- publishers
+
+	-> mavlinkf/mavlink_receiver.cpp			(only if mavlink_hil_enabled == true)
+	-> sensors/sensors.cpp						(only if input_rc message is received)
+
+
+- subscribers
+	
+	-> mavlinkf/orb_listener.c	
+	-> commander/commander.cpp					(rc signal quality evaluation, arming, disarming, mode switches)
+	-> commander/rc_calibration.cpp				(trim calibration ?)
+	-> fixedwing_att_control/fixedwing_att_control_main.c
+	-> multirotor_att_control/multirotor_att_control_main.c
+	-> fw_att_control/fw_att_control_main.cpp
+	-> navigator/navigator_main.cpp
+	-> fw_pos_control_l1/fw_pos_control_l1_main.cpp
+	-> multirotor_pos_control/multirotor_pos_control.c
+	-> fixedwing_control/main.c
+	-> flow_position_control/flow_position_control_main.c
+	
+	
+-----------------------------------------------------------
+		input_rc 				(MAVLINK: rc_channels_raw)
+-----------------------------------------------------------
+
+- publishers
+
+	-> remote/pub_rc_input.c
+	-> px4fmu/fmu.cpp
+
+
+- subscribers
+
+	-> mavlinkf/orb_listener.c
+	-> sensors/sensors.cpp
+	
+	
+-----------------------------------------------------------
+		vehicle_commands (MAVLINK: set_mode, command_long)
+-----------------------------------------------------------
+
+- publishers
+
+	-> mavlinkf/mavlink_receiver.cpp (2x)
+		- in handle_message(mavlink_message_t *msg)
+			-> if (msg->msgid == MAVLINK_MSG_ID_COMMAND_LONG)
+			-> if (msg->msgid == MAVLINK_MSG_ID_SET_MODE)
+	-> mavlink_onboard/mavlink_receiver.c (2x)
+	-> px4io/px4io.cpp
+
+	
+- subscribers	
+
+	-> commander/commander.cpp (2x)
+		- in commander_thread_main(int argc, char *argv[])
+		- in commander_low_prio_loop(void *arg)
+	-> sdlog/sdlog.c
+	-> sdlog2/sdlog2.c
+	-> px4io/px4io.cpp	
+
+	
+-----------------------------------------------------------
+		vehicle_status (MAVLINK: heartbeat)	
+-----------------------------------------------------------
+
+- publishers
+
+	-> commander/state_machine_helper.cpp
+	-> commander/commander.cpp
+
+
+- subscribers
+
+	-> mavlinkf/orb_listener.c
+	-> position_estimator/position_estimator_main.c
+	-> gpio_led/gpio_led.c
+	-> commander/commander.cpp
+	-> fixedwing_att_control/fixedwing_att_control_main.c
+	-> multirotor_att_control/multirotor_att_control_main.c
+	-> sdlog2/sdlog2.c
+	-> navigator/navigator_main.cpp
+	-> position_estimator_mc/position_estimator_mc_main.c
+	-> fixedwing_control/main.c
+	-> blinkm/blinkm.cpp
+
+
+-----------------------------------------------------------
+		actuator_armed (MAVLINK: heartbeat)	
+-----------------------------------------------------------	
+		
+- publishers
+
+	-> commander/commander.cpp
+	->	
+
+
+- subscribers
+
+	-> mavlinkf/orb_listener.c
+	-> position_estimator_inav/position_estimator_inav_main.c
+	-> flow_speed_control/flow_speed_control_main.c
+	-> flow_position_estimator/flow_position_estimator_main.c
+	-> flow_position_control/flow_position_control_main.c
+	-> px4fmu/fmu.cpp
+	-> ardrone_interface/ardrone_interface.c
+	-> blinkm/blinkm.cpp
+	-> px4io/px4io.cpp
+	-> mkblctrl/mkblctrl.cpp
+	-> hil/hil.cpp
+	
+	
+	
+	
+	

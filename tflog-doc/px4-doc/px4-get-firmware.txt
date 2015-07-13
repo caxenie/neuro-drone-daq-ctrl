@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------------------------
+		get px4 fmu firmware source files
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/dev/nuttx/building_and_flashing_console
+
+
+-----------------------------------------------------------
+		get repository
+-----------------------------------------------------------
+
+- note that there are now to repositories
+
+	-> original firmware
+	
+		git clone https://github.com/PX4/Firmware
+		
+		
+	-> custom firmware
+	
+		git clone git@bitbucket.org:fbergner/nst_msc_px4fmu.git
+
+		
+	-> operating system
+	
+		cd Firmware
+		git clone https://github.com/PX4/NuttX.git
+
+
+- note: DON'T store repository on removable device; you won't get execution right for the shell scripts

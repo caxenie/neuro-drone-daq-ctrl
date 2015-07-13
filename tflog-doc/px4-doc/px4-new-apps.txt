@@ -1,0 +1,68 @@
+-------------------------------------------------------------------------------------------------
+		new px4fmu apps
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+-----------------------------------------------------------
+		helloWorld
+-----------------------------------------------------------
+
+	- a simple hello world program
+
+
+-----------------------------------------------------------
+		isystem
+-----------------------------------------------------------
+
+	- shows system info
+		 
+		-> system frequency
+		-> bus frequencies
+
+
+-----------------------------------------------------------
+		iusart
+-----------------------------------------------------------
+
+	- displays the current usart/uart configuration (baudrate etc.)
+
+		-> on which bus is a certain usart block
+		-> what is the current baudrate of an usart
+
+
+-----------------------------------------------------------
+		remote
+-----------------------------------------------------------
+
+	- listens on a usart port for remote control packages
+	- publishes the packages to the uORB object request broker
+	- the topic is "rc_input"
+
+
+-----------------------------------------------------------
+		iremote
+-----------------------------------------------------------
+ 
+	- subcribes to the "rc_input" topic
+	- prints the content of the rc_input messages
+
+
+-----------------------------------------------------------
+		mavlinkf
+-----------------------------------------------------------
+
+	- mavlinkf is a modificated version of mavlink
+	- it enable the mavlink program to connect to uarts
+		with a baudrate of 4Mbit
+
+	- ATTENTION: DMA & 4 Mbit must be enables for the
+		specified uart port!
+
+
+
+
+
+

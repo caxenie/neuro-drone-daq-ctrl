@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------------------------
+			the quadrotor position estimator (test app which comes with the drone)
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/users/apps/position_estimator_inav
+
+
+Firmware/src/modules/position_estimator_inav
+Firmware/src/examples/flow_position_estimator
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------

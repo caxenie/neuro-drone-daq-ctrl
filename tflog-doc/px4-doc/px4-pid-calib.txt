@@ -1,0 +1,131 @@
+-------------------------------------------------------------------------------------------------
+		PID controller tuning
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/users/multirotor_pid_tuning
+
+
+- set the initial values:
+
+	-> rate tuning						(old values)			(new values)
+
+		MC_YAWRATE_P = 0				0.3						0.1
+		MC_YAWRATE_D = 0				0.005					0.003
+		MC_YAWRATE_I = 0				0.2						0
+	
+		MC_ATTRATE_P = 0				0.09					0.09
+		MC_ATTRATE_D = 0				0.002					0.002
+		MC_ATTRATE_I = 0				0
+
+
+	-> angle tuning
+
+		MC_ATT_P = 0					6.8						11
+		MC_ATT_D = 0					0						0.05
+		MC_ATT_I = 0					0						0
+
+		MC_YAWPOS_P = 0					2						2
+		MC_YAWPOS_D = 0					0						0
+		MC_YAWPOS_I = 0					0.15					0
+
+
+
+
+
+
+-----------------------------------------------------------
+		stabilize ROLL and PITCH rates
+-----------------------------------------------------------
+
+- attitude (ROLL, PITCH) rate P
+	
+	MC_ATTRATE_P = 0.01	 (small!)
+
+- put throttle to 50 % and hold drone
+- drone only fights against movements (doesn't want to get back to level)
+
+- if already oszillating: decrease in 50% steps (half, a quarter, ...)
+- increase P (0.02 steps) until oszillation starts
+- decrease P until no or only small oszillations occur (10% cut-back)
+- drone should show small response
+
+- set D to 30% of P
+- increase D until all oszillations disappear
+
+
+-----------------------------------------------------------
+		stabilize YAW rate
+-----------------------------------------------------------
+
+- set YAW rate
+
+	MC_YAWRATE_P = 0.2
+
+- put throttle to 50 % and hold drone
+- drone fights movements with less force than observed before in ROLL and PITCH rate stabilization
+
+- if already oszillating: decrease in 50% steps (half, a quarter, ...)
+- increase P until oszillation starts
+- decrease P until oszillation disappears
+- this setting can deteriorate ROLL and PITCH response
+
+
+-----------------------------------------------------------
+		stabilize ROLL and PITCH angles
+-----------------------------------------------------------
+
+- set attitude angle P
+
+	MC_ATT_P = 3
+
+- put throttle to 50 % and hold drone
+- drone wants to go back to level
+
+- if already oszillating: decrease in 50% steps (half, a quarter, ...)
+- increase P until oszillation starts
+- decrease P until oszillation disappears (20% cut-back)
+- have a look at signals at QGroundcontrol
+
+	CTRL0 and CTRL1
+
+	-> curves represent ROLL and PITCH controller output
+	-> curves should be smooth and correlate with angles
+
+- set D to 30% of P
+- increase D until all oszillations disappear
+- increade D slightly further to reduce overshoots
+- if control response is to noisy, then reduce P and D
+
+
+-----------------------------------------------------------
+		stabilize YAW angles
+-----------------------------------------------------------
+
+- set YAW angle P
+
+	MC_YAWPOS_P = 0.05
+
+- put throttle to 50 % and hold drone
+- drone wants to go back to level
+
+
+- if already oszillating: decrease in 50% steps (half, a quarter, ...)
+- increase P until oszillation starts
+- decrease P until oszillation disappears
+- if slow response: increase P until firm reponse but no oszillation
+
+- have a look at signals at QGroundcontrol
+
+	ROLL_PITCH_YAW_THRUST_SETPOINT.yaw
+
+	-> curve represents yaw control output
+	-> curve should be smooth and correlate with yaw
+
+- set D to 10% of P (optional)
+- increase D until all oszillations disappear
+- decrease D until noise on output disappears
+
+
+
+
+

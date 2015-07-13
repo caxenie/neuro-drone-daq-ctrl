@@ -1,0 +1,110 @@
+-------------------------------------------------------------------------------------------------
+		some information about uorb topics
+-------------------------------------------------------------------------------------------------
+
+- where to look for topic definitions
+
+	Firmware/src/modules/uORB/topics
+	Firmware/src/drivers
+	
+
+-----------------------------------------------------------
+		vehicle_command topic
+-----------------------------------------------------------
+
+#include <uORB/topics/vehicle_command.h>
+
+
+- makes vehicle commands available like
+
+	VEHICLE_CMD_DO_SET_PARAMETER
+	VEHICLE_CMD_PREFLIGHT_CALIBRATION
+
+	etc.
+	
+
+- topic is published by mavlink in
+
+	mavlink_receiver.cpp
+
+
+- topic is subscribed by
+
+	-> commander:
+
+		commander.cpp
+
+
+	-> icmds
+
+	
+
+-----------------------------------------------------------
+		manual_control_setpoint topic
+-----------------------------------------------------------
+
+- publishers
+
+	-> mavlinkf/mavlink_receiver.cpp			(only if mavlink_hil_enabled == true)
+	-> sensors/sensors.cpp						(only if input_rc message is received)
+
+
+- subscribers
+	
+	-> mavlinkf/orb_listener.c	
+	-> commander/commander.cpp					(rc signal qualitiy evaluation, arming, disarming, mode switches)
+	-> commander/rc_calibration.cpp				(trim calibration ?)
+	-> fixedwing_att_control/fixedwing_att_control_main.c
+	-> multirotor_att_control/multirotor_att_control_main.c
+	-> fw_att_control/fw_att_control_main.cpp
+	-> navigator/navigator_main.cpp
+	-> fw_pos_control_l1/fw_pos_control_l1_main.cpp
+	-> multirotor_pos_control/multirotor_pos_control.c
+	-> fixedwing_control/main.c
+	-> flow_position_control/flow_position_control_main.c
+	
+
+- data structure
+
+	uint64_t timestamp;
+
+	float roll;			 	/**< ailerons roll / roll rate input */
+	float pitch;				/**< elevator / pitch / pitch rate */
+	float yaw;				/**< rudder / yaw rate / yaw */
+	float throttle;				/**< throttle / collective thrust / altitude */
+
+	float mode_switch;			/**< mode 3 position switch (mandatory): manual, assisted, auto */
+	float return_switch;			/**< land 2 position switch (mandatory): land, no effect */
+	float assisted_switch;			/**< assisted 2 position switch (optional): seatbelt, simple */
+	float mission_switch;		/**< mission 2 position switch (optional): mission, loiter */
+
+	/**
+	 * Any of the channels below may not be available and be set to NaN
+	 * to indicate that it does not contain valid data.
+	 */
+
+	// XXX needed or parameter?
+	//float auto_offboard_input_switch;	/**< controller setpoint source (0 = onboard, 1 = offboard) */
+
+	float flaps;				/**< flap position */
+
+	float aux1;				/**< default function: camera yaw / azimuth */
+	float aux2;				/**< default function: camera pitch / tilt */
+	float aux3;				/**< default function: camera trigger */
+	float aux4;				/**< default function: camera roll */
+	float aux5;				/**< default function: payload drop */
+
+
+- ranges
+
+	-> roll: 				[-1,	1] 		* parameters.rc_scale_roll
+	-> pitch:				[-1,	1]		* parameters.rc_scale_pitch
+	-> yaw:					[-1,	1]		* parameters.rc_scale_yaw
+	-> throttle:			[0,		1]
+	-> all the others:		[-1,    1]		or NAN if not available
+
+
+
+
+
+

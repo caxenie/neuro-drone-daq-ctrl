@@ -1,0 +1,29 @@
+-------------------------------------------------------------------------------------------------
+		an overview of mavlink message ids
+-------------------------------------------------------------------------------------------------
+
+
+https://pixhawk.ethz.ch/mavlink/
+
+
+MAVLINK_MSG_ID_HEARTBEAT 0
+MAVLINK_MSG_ID_SYS_STATUS 1
+MAVLINK_MSG_ID_SET_MODE 11
+
+MAVLINK_MSG_ID_PING 4
+
+MAVLINK_MSG_ID_PARAM_REQUEST_READ 20
+MAVLINK_MSG_ID_PARAM_REQUEST_LIST 21
+
+
+MAVLINK_MSG_ID_PARAM_SET 23
+
+
+MAVLINK_MSG_ID_COMMAND_LONG 76
+MAVLINK_MSG_ID_COMMAND_ACK 77
+
+
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------

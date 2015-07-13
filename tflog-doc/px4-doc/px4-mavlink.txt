@@ -1,0 +1,95 @@
+-------------------------------------------------------------------------------------------------
+		details about mavlink and its messages
+-------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------
+		heartbeat message:			MAVLINK_MSG_ID_HEARTBEAT 0
+-----------------------------------------------------------
+
+- is received from the drone
+
+- payload information
+
+	->	custom_mode:		bitfield with autopilot specific flags
+	->	type:				type of the mav: quadrotor = 2 				(MAV_TYPE enum)
+	->	autopilot:			autopilot type: px4 = 12					(MAV_AUTOPILOT enum)
+	->	base_mode:			system mode bitfield						(MAV_MODE_FLAGS enum)
+			bit 0:	CUSTOM_MODE_ENABLED
+			bit 1:	TEST_ENABLED
+			bit 2:	AUTO_ENABLED
+			bit 3:	GUIDED_ENABLED
+			bit 4:	STABILIZE_ENABLED
+			bit 5:	HIL_ENABLED
+			bit 6:	MANUAL_INPUT_ENABLED
+			bit 7:	SAFETY_ARMED
+
+	->	system_status:		sustem status flags							(MAV_STATE enum)
+			0:		UNINIT
+			1:		BOOT
+			2:		CALIBRATING
+			3:		STANDBY
+			4:		ACTIVE
+			5:		CRITICAL
+			6:		EMERGENCY
+			7:		POWEROFF
+
+	->	mavlink_version:	mavlink version (usually 3, defined by version magic)
+
+
+-----------------------------------------------------------
+		sys_status message:			MAVLINK_MSG_ID_SYS_STATUS 1
+-----------------------------------------------------------
+
+- is received from the drone
+
+- payload information
+
+	-> onboard_control_sensors_present:		bitfield to show which conrollers and sensors are present
+			bit 0:	3D gyro
+			bit 1: 	3D accelerometer
+			bit 2:	3D magnetometer
+			bit 3:	absolute pressure sensor
+			bit 4:	differential pressure
+			bit 5: 	GPS
+			bit 6:	optical flow
+			bit 7:	computer vision position
+			bit 8:	laser based position
+			bit 9:	eternal ground truth
+			bit 10:	3D angular rate control
+			bit 11:	attitude stabilization
+			bit 12: yaw position
+			bit 13:	z/altitude control			
+			bit 14: x/y position
+			bit 15:	motor output / control
+
+	-> onboard_control_sensors_enabled:		bitfield to show which conrollers and sensors are enabled
+	-> onboard_control_sensors_health:		bitfield to show which conrollers and sensors have an error
+	-> load:								maximum usage (1000 = 100%)
+	-> voltage_battery:						battery voltage 1 = 1 mV
+	-> current_battery:						battery current 1 = 10 mA
+	-> drop_rate_comm:						comm drops 10000 = 100 %
+	-> errors_comm:							comm errors	
+	-> battery_remaining:					remaining battery 100 = 100%
+
+
+
+-----------------------------------------------------------
+		sys_status message:			MAVLINK_MSG_ID_SET_MODE 11
+-----------------------------------------------------------
+
+- can be sent to the drone
+
+- payload information
+
+	-> custom_mode:		bitfield with autopilot specific flags
+	-> target_system:	the system setting the new mode
+	-> base_mode:		the new base_mode (the old one can be found in the heart beat message)	
+
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+-------------------------------------------------------------------------------------------------
+		connect to nuttx shell
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/users/serial_connection
+https://pixhawk.ethz.ch/px4/modules/wiring 
+
+
+-----------------------------------------------------------
+		connect with screen
+-----------------------------------------------------------
+
+- install screen
+
+	sudo apt-get install screen
+
+
+- default connection (when using fresh firmware)
+
+	sudo chmod 666 /dev/ttyUSB*
+	screen /dev/ttyUSB0 57600 8N1
+
+
+- nst connection (default NST setup)
+
+	sudo chmod 666 /dev/ttyUSB*
+	screen /dev/ttyUSB0 115200 8N1
+
+
+- USB connection 
+
+	 screen /dev/ttyACM0
+
+	-> note: start screen during boot up and hit enter all the time
+	-> connection is lost when boot up is finished
+	-> reconnect and nsh is present
+
+
+- close connection
+
+	-> press "CTRL+A", press "K", acknowledge kill with "y"
+
+
+- enter scroll mode 
+
+	-> press "CTRL+A", press "ESC"
+
+
+- leave scroll mode
+
+	-> press "ESC"
+
+
+
+
+

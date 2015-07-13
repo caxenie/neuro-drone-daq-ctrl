@@ -1,0 +1,93 @@
+-------------------------------------------------------------------------------------------------
+		build px4 firmware
+-------------------------------------------------------------------------------------------------
+
+
+https://pixhawk.ethz.ch/px4/dev/nuttx/building_and_flashing_console
+
+
+
+
+-----------------------------------------------------------
+		build firmware	
+-----------------------------------------------------------
+
+- build firmware
+
+	cd Firmware
+	make distclean
+	make archives
+	make
+
+
+- add user to dailout group (needs only be done once)
+
+	sudo usermod -a -G dialout $USER
+
+
+- upload firmware
+
+	make upload px4fmu-v1_default
+
+	-> press reset button when message "waiting for bootloader" arrives
+
+
+
+-----------------------------------------------------------
+		rebuild firmware	
+-----------------------------------------------------------
+
+- rebuild with updates from remote
+
+	cd Firmware
+	
+	make distclean
+
+	git pull origin master
+	cd NuttX
+	git pull origin master
+	cd ..
+ 
+	make archives
+	make
+
+	make upload px4fmu-v1_default
+
+
+- apply local changes (changes in Firmware/nuttx)
+
+	-> everything must be rebuilt
+
+		cd Firmware
+
+		make distclean
+		make archives
+		make
+
+		make upload px4fmu-v1_default
+
+
+- apply local changes (changes in headers of Firmware/src only)
+
+	-> nuttx rebuilt is not needed
+
+		cd Firmware
+
+		make clean
+		make
+
+		make upload px4fmu-v1_default
+
+
+- apply local changes (in other parts of the source code)
+
+	-> nuttx rebuilt is not needed
+
+		cd Firmware
+
+		make upload px4fmu-v1_default
+
+
+
+
+

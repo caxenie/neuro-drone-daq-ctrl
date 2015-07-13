@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------------------------
+		px4 firmware applications
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/dev/apps/px4_simple_app
+
+
+
+
+-----------------------------------------------------------
+		nsh = nuttx shell apps
+-----------------------------------------------------------
+
+- get a list of all installed apps
+
+	help
+
+
+- get cpu usage
+
+	top
+
+
+- get a list of running programs
+
+	ps
+
+
+- use a uart as new console
+
+	nshterm <path to device> &
+
+	-> note: baudrate defaults to config baudrate
+	-> note: screen is not working with 4Mbit
+
+

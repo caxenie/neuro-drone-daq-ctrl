@@ -1,0 +1,67 @@
+-------------------------------------------------------------------------------------------------
+		get an overview of the firmware memory mapping and size
+-------------------------------------------------------------------------------------------------
+
+	Firmware/Build/px4fmu-v1_default.build
+	Firmware/Build/px4fmu-v1_default.build/home/flo/px4-firmware/Firmware/src
+
+
+- get information with
+
+		size module.pre.o
+
+
+
+-----------------------------------------------------------
+		mavlinkf 	(addresses might change with new compilations)
+-----------------------------------------------------------
+
+
+- .text section: 		0x0806c6dc		to			0x08082070 
+		
+	-> size = 0x15994 		(88468 Bytes)
+
+
+- .rotext section:		0x080e09f0		to 			0x080e0b98
+
+	-> size = 0x1A8			(424 Bytes)		 		
+
+
+- .data section:		0x200000c4 		to			0x20000128
+
+	-> size = 0x64			(100 Bytes)
+
+
+- .bss section:			0x2000291c		to			0x20003c7c
+
+	-> size = 0x1360		(4960 Bytes)
+
+
+
+
+- size information on module.pre.o
+
+	-> get information with
+
+		size module.pre.o
+
+	-> output
+
+	   text	   data	    bss	    dec	    hex	filename
+	  91808	     94	   4903	  96805	  17a25	module.pre.o
+
+
+-----------------------------------------------------------
+		remote
+-----------------------------------------------------------
+
+   text	   data	    bss	    dec	    hex	filename
+   2732	      0	      4	   2736	    ab0	module.pre.o
+
+
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+
+
+

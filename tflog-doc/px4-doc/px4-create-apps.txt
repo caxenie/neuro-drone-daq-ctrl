@@ -1,0 +1,79 @@
+-------------------------------------------------------------------------------------------------
+		build apps
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/dev/apps/px4_simple_app
+
+
+
+
+-----------------------------------------------------------
+		hello world app
+-----------------------------------------------------------
+
+ - create a new folder for the app
+
+	Firmware/src/modules/<app-name = folder name>
+
+
+- create a new makefile in that folder
+
+	module.mk
+
+	-> example content of that file
+
+		MODULE_COMMAND	= helloWorld
+		SRCS			= helloWorld.c
+
+
+- create the main source file
+	
+	helloWorld.c
+
+	-> example content of that file
+
+		#include <nuttx/config.h>
+		#include <stdio.h>
+		#include <errno.h>
+
+		__EXPORT int helloWorld_main(int argc, char *argv[]);
+ 
+		int helloWorld_main(int argc, char *argv[])
+		{
+			printf("Hello World!\n");
+			return OK;
+		}
+
+
+- register the new app in nsh
+
+	Firmware/makefiles/config_px4fmu-v1_default.mk
+
+	-> the example line to makefile
+
+		MODULES		+= modules/helloWorld
+
+
+- first build after adding new modules
+
+	make archives
+	make clean
+	make px4fmu-v1_default		
+
+
+- if no new app has been added
+
+	make px4fmu-v1_default
+
+
+- finally upload new config
+
+	make upload px4fmu-v1_default
+
+	
+
+
+
+
+
+

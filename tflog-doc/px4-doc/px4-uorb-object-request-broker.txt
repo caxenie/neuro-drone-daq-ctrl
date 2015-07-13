@@ -1,0 +1,108 @@
+-------------------------------------------------------------------------------------------------
+		how to use the uORB object request broker
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/dev/shared_object_communication
+
+
+
+
+
+-----------------------------------------------------------
+		basics
+-----------------------------------------------------------
+
+	- an inter process or inter application communication mechanism
+		(application, process also referred as nodes)
+	
+	- two clients on a bus, exchanging information:
+	
+		-> publisher: 	sends 		= publishes data
+		-> subscriber:	receives 	= subscribes data
+		
+		-> topic:		defines the information which is exchanged, also referred as named buses
+	
+	
+	- functions and macros to work with topics
+	
+		-> declare a new topic in a globally accessible topic header file
+		
+			ORB_DECLARE(<topic name>);
+			
+			struct <topic name>_data
+			{
+				<struct members>
+			};
+			
+		
+		-> place new topics into the topics folder of the uORB object request broker
+
+			Firmware/src/modules/uORB/topics
+			
+			
+		-> define (create) the topic in the publisher
+			
+			ORB_DEFINE(<topic name>);
+			
+			
+		-> BEFORE a topic can be published, the topic must be advertised
+
+			<topic handle> = orb_advertise(ORB_ID(<topic name>), <pointer to topic data struct>);
+						
+			-> the <topic handle> is of type int
+			-> must not be called in interrupt handlers
+			
+						
+		-> update data of a topic = publish data
+
+			orb_publish(ORB_ID(<topic name>), <topic handle>, <pointer to new topic data struct>);
+			
+			-> may be called in interrupt handlers
+			
+		
+		-> BEFORE the subscriber can receive topic updates, it must subscribe a topic
+
+			<topic handle> = orb_subscribe(ORB_ID(<topic name>));
+			
+		
+		-> check for a topic update (non-blocking)
+		
+			orb_check(<topic handle>, <pointer to variable "updated" of type bool>);
+			
+			
+		-> wait for a topic update (blocking with timeout)
+
+			- use an array of topic handlers (they are actually file descriptors)
+			
+				struct pollfd fds[3] =
+				{
+					{ .fd = <topic handle 1>,   .events = POLLIN },
+					{ .fd = <topic handle 2>, 	.events = POLLIN },
+					{ .fd = <topic handle 3>,  	.events = POLLIN }
+				};
+			
+			
+			- poll the topic in 1s intervals
+			
+				int ret = poll(fds, 3, 1000);
+		
+
+		-> copy the data from a topic if an update occurred
+		
+			orb_copy(ORB_ID(<topic name>), <topic handle>, <pointer to topic data struct>);
+			
+			
+		-> unsubscribe a topic
+
+			orb_unsubscribe(<topic handle>);
+			
+		
+		-> limit the rate of a subscribed topic
+
+			int ret = orb_set_interval(<topic handle>, <interval in milli seconde>);
+
+				
+			
+	
+		
+			

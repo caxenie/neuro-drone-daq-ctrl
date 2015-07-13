@@ -1,0 +1,132 @@
+-------------------------------------------------------------------------------------------------
+		change uart of nuttx shell connection
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/dev/nuttx/start
+https://pixhawk.ethz.ch/px4/users/serial_connection
+https://pixhawk.ethz.ch/px4/modules/wiring
+
+-----------------------------------------------------------
+		default nuttx configuration 
+-----------------------------------------------------------
+
+- nuttx shell can be found on 
+
+	usart1, 57600, 8N1
+
+
+-----------------------------------------------------------
+		default nst nuttx configuration 
+-----------------------------------------------------------
+
+- nuttx shell can be found on 
+
+	uart5, 115200, 8N1
+
+
+-----------------------------------------------------------
+		change uart configuration nuttx shell
+-----------------------------------------------------------
+
+- open config file of px4 firmware
+
+	Firmware/nuttx-configs/px4fmu-v1/nsh
+
+
+- change the following configuration
+
+	-> comment this line
+
+		CONFIG_USART1_SERIAL_CONSOLE=y
+
+	-> add this line	
+		
+		CONFIG_UART5_SERIAL_CONSOLE=y
+
+	-> ttyS* don't change
+
+
+- ATTENTION: rxdma option doesn't work with default console selection
+
+
+-----------------------------------------------------------
+		change uart configuration to NST default
+-----------------------------------------------------------
+
+- only usart1 and usart6 support a baudrate of 4MBit
+- to use such high baudrates the periferial bus must be forced to support it
+
+- ATTENTION: rxdma option doesn't work with default console selection
+
+- change the usart configuration in
+
+	Firmware/nuttx-configs/px4fmu-v1/nsh/defconfig
+
+
+		# CONFIG_USART1_SERIAL_CONSOLE=y
+		# CONFIG_USART2_SERIAL_CONSOLE is not set
+		CONFIG_UART5_SERIAL_CONSOLE=y
+		# CONFIG_USART6_SERIAL_CONSOLE is not set
+		# CONFIG_NO_SERIAL_CONSOLE is not set
+
+		#
+		# USART1 Configuration
+		#
+		CONFIG_USART1_RXBUFSIZE=512
+		CONFIG_USART1_TXBUFSIZE=512
+		CONFIG_USART1_BAUD=4000000
+		CONFIG_USART1_BITS=8
+		CONFIG_USART1_PARITY=0
+		CONFIG_USART1_2STOP=0
+		# CONFIG_USART1_IFLOWCONTROL is not set
+		# CONFIG_USART1_OFLOWCONTROL is not set
+
+		#
+		# USART2 Configuration
+		#
+		CONFIG_USART2_RXBUFSIZE=512
+		CONFIG_USART2_TXBUFSIZE=512
+		CONFIG_USART2_BAUD=115200
+		CONFIG_USART2_BITS=8
+		CONFIG_USART2_PARITY=0
+		CONFIG_USART2_2STOP=0
+		CONFIG_USART2_IFLOWCONTROL=y
+		CONFIG_USART2_OFLOWCONTROL=y
+
+		#
+		# UART5 Configuration
+		#
+		CONFIG_UART5_RXBUFSIZE=512
+		CONFIG_UART5_TXBUFSIZE=512
+		CONFIG_UART5_BAUD=115200
+		CONFIG_UART5_BITS=8
+		CONFIG_UART5_PARITY=0
+		CONFIG_UART5_2STOP=0
+		# CONFIG_UART5_IFLOWCONTROL is not set
+		# CONFIG_UART5_OFLOWCONTROL is not set
+
+		#
+		# USART6 Configuration
+		#
+		CONFIG_USART6_RXBUFSIZE=512
+		CONFIG_USART6_TXBUFSIZE=512
+		CONFIG_USART6_BAUD=4000000
+		CONFIG_USART6_BITS=8
+		CONFIG_USART6_PARITY=0
+		CONFIG_USART6_2STOP=0
+		# CONFIG_USART6_IFLOWCONTROL is not set
+		# CONFIG_USART6_OFLOWCONTROL is not set
+
+			
+		-> new connection setup
+			
+			uart1 == ttyS1
+			uart2 == ttyS2
+			uart5 == ttyS0
+			uart6 == ttyS3
+
+
+
+
+
+

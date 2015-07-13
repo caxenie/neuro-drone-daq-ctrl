@@ -1,0 +1,65 @@
+-------------------------------------------------------------------------------------------------
+		install toolchain
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/dev/toolchain_installation_lin
+
+
+
+-----------------------------------------------------------
+		install dependencies
+-----------------------------------------------------------
+
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo apt-get install python-serial python-argparse openocd \
+		flex bison libncurses5-dev autoconf texinfo build-essential \
+		libftdi-dev libtool zlib1g-dev genromfs ia32-libs git-core wget
+
+
+-----------------------------------------------------------
+		install toolchain
+-----------------------------------------------------------
+
+	cd ~
+	wget https://launchpad.net/gcc-arm-embedded/4.6/4.6-2012-q2-update/+download/gcc-arm-none-eabi-4_6-2012q2-20120614.tar.bz2
+	tar -vjxf gcc-arm-none-eabi-4_6-2012q2-20120614.tar.bz2
+	exportline="export PATH=$HOME/gcc-arm-none-eabi-4_6-2012q2/bin:\$PATH"
+	if grep -Fxq "$exportline" ~/.profile; then echo nothing to do ; else echo $exportline >> ~/.profile; fi
+	. ~/.profile
+
+- new version
+
+	-> version: gcc-arm-none-eabi-4_8-2013q4
+	
+		https://launchpad.net/gcc-arm-embedded
+	
+	- add toolchain to path
+		
+		exportline="export PATH=$HOME/<version>/bin:\$PATH"
+		exportline="export PATH=$HOME/gcc-arm-none-eabi-4_8-2013q4/bin:\$PATH"
+	
+	
+	-> if no restart performed yet (for each new terminal)
+	
+		if grep -Fxq "$exportline" ~/.profile; then echo nothing to do ; else echo $exportline >> ~/.profile; fi
+		. ~/.profile
+
+	-> add to path (temporarily)
+	
+		. ~/.profile
+
+	
+-----------------------------------------------------------
+		dialout group
+-----------------------------------------------------------
+
+	sudo usermod -a -G dialout $USER
+
+
+
+
+
+
+

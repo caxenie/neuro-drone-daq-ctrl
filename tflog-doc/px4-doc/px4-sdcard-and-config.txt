@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------------------------
+		px4 sd card and config files
+-------------------------------------------------------------------------------------------------
+
+https://pixhawk.ethz.ch/px4/users/apps/auto_starting_apps
+
+
+
+-----------------------------------------------------------
+		prepare sd card
+-----------------------------------------------------------
+
+- format sd card with a FAT file system
+
+	-> start and use disk utility on linux
+
+
+- create a "etc" folder on the sd card
+
+
+- create the start up script "rc" and place into the folder "etc"
+
+
+
+
+-----------------------------------------------------------
+		disable auto start for debugging
+-----------------------------------------------------------
